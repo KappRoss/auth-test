@@ -1,11 +1,25 @@
 import React, {useState} from 'react'
 import s from './authPage.module.css'
+import {connect} from "react-redux";
+import {authLogin} from "../../store/actions/auth";
 
 const AuthPage = props => {
 
-    const [value, setValue] = useState('')
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
 
-    const handleSubmit = () => {
+
+
+    const loginHandler = () => {
+        let token = Math.random()
+
+        props.authLogin(login, password, token)
+
+        if (props.isAuth) {
+            props.history.push('/info-page')
+        } else {
+            alert('Wrong password or email!')
+        }
 
     }
 
@@ -19,8 +33,8 @@ const AuthPage = props => {
                         <input
                             type="text"
                             id={'login'}
-                            value={value}
-                            onChange={setValue}
+                            value={login}
+                            onChange={e => setLogin(e.target.value)}
                         />
                     </div>
                     <div>
@@ -28,16 +42,25 @@ const AuthPage = props => {
                         <input
                             type="password"
                             id={'password'}
-                            value={value}
-                            onChange={setValue}
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
                         />
                     </div>
                 </form>
-                <button>Login</button>
-                <button>Registr</button>
+                <button onClick={loginHandler}>Log in</button>
+                <button>Sign up</button>
             </div>
         </div>
     )
 }
 
-export default AuthPage
+const mapStateToProps = state => {
+    return {
+        isAuth: state.auth.isAuth,
+        adminLogin: state.auth.adminLogin,
+        adminPassword: state.auth.adminPassword
+    }
+}
+
+export default connect(mapStateToProps, {authLogin})(AuthPage)
+

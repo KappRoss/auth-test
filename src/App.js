@@ -9,7 +9,6 @@ import {connect} from "react-redux";
 const App = ({isAuth}) => {
     return (
         <div className="App">
-            <h1>AUTH-test</h1>
             <div className="navMenu">
                 <div>
                     <NavLink to={'/'}>Auth </NavLink>
