@@ -22,8 +22,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const logger = createLogger()
 
 export let store = createStore(persistedReducer,
-    compose(applyMiddleware(logger, thunk),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+    compose(applyMiddleware(logger, thunk)))
 
 export let persistor = persistStore(store)
 
