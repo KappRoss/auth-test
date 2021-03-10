@@ -1,8 +1,8 @@
 import {ADMIN_AUTH, AUTH_ERROR, AUTH_LOG_IN, AUTH_SIGN_UP, LOG_OUT} from "../actions/actionsType";
 
 const initialState = {
-    isAuth: false,
-    token: null,
+    isAuth: false,      // for local
+    token: null,        // for simulate. (token from src/UserStateFile/users)
     users: [
         {
             userName: 'k@mail.ru',
@@ -33,7 +33,8 @@ export default function authReducer(state = initialState, actions) {
             return {
                 ...state,
                 isAuth: true,
-                error: false
+                error: false,
+                token: actions.idToken
             }
         case AUTH_SIGN_UP:
             return {
