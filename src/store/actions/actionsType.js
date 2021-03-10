@@ -1,1 +1,5 @@
 export const AUTH_LOG_IN = 'AUTH_LOG_IN'
+export const AUTH_SIGN_UP = 'AUTH_SIGN_UP'
+export const ADMIN_AUTH = 'ADMIN_AUTH'
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const LOG_OUT = 'LOG_OUT'

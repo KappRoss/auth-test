@@ -6,7 +6,7 @@ import InfoPage from "./components/infoPage/InfoPage";
 import AdminPage from "./components/adminPage/AdminPage";
 import {connect} from "react-redux";
 
-const App = ({isAuth}) => {
+const App = ({isAdmin}) => {
     return (
         <div className="App">
             <div className="navMenu">
@@ -17,7 +17,7 @@ const App = ({isAuth}) => {
                     <NavLink to={'/info-page'}>Info page</NavLink>
                 </div>
                 <div>
-                    {isAuth
+                    {isAdmin
                         ? <NavLink to={'/admin-page'}>Admin page</NavLink>
                         : null
                     }
@@ -34,7 +34,7 @@ const App = ({isAuth}) => {
 
 const mapStateToProps = state => {
     return {
-        isAuth: state.auth.isAuth
+        isAdmin: state.auth.isAdmin
     }
 }
 

@@ -4,22 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from "react-router-dom";
-import {applyMiddleware, compose, createStore} from "redux";
 import {Provider} from "react-redux"
-import {rootReducer} from "./store/rootReducer";
-import {createLogger} from "redux-logger/src";
-
-const logger = createLogger()
-const store = createStore(rootReducer,
-    compose(applyMiddleware(logger),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+import { PersistGate } from 'redux-persist/integration/react'
+import {persistor, store} from "./store/rootReducer";
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <Router>
-                <App/>
-            </Router>
+            <PersistGate persistor={persistor} loading={null}>
+                <Router>
+                    <App/>
+                </Router>
+            </PersistGate>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')

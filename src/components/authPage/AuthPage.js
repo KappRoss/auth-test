@@ -1,55 +1,65 @@
 import React, {useState} from 'react'
 import s from './authPage.module.css'
 import {connect} from "react-redux";
-import {authLogin} from "../../store/actions/auth";
+import {auth, logOut} from "../../store/actions/auth";
 
-const AuthPage = props => {
+const AuthPage = ({adminLogin, adminPassword, auth, isAuth, isAdmin, error, success, logOut}) => {
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
 
-
-
     const loginHandler = () => {
-        let token = Math.random()
-
-        props.authLogin(login, password, token)
-
-        if (props.isAuth) {
-            props.history.push('/info-page')
+        if (login === adminLogin && password === adminPassword) {
+            auth(login, password, true, true)
         } else {
-            alert('Wrong password or email!')
+            auth(login, password, true, false)
         }
-
     }
 
-    return(
+    return (
         <div className={s.AuthPage}>
-            <div>
-                <h1>Auth Page</h1>
-                <form onSubmit={event => event.preventDefault()}>
-                    <div >
-                        <label htmlFor="login">Your Email/Nick</label>
-                        <input
-                            type="text"
-                            id={'login'}
-                            value={login}
-                            onChange={e => setLogin(e.target.value)}
-                        />
+            {
+                isAuth
+                    ? <div>
+                        You are log in as {
+                        isAdmin
+                            ? <span>'ADMIN'</span>
+                            : <span>'USER'</span>
+                    }
+                        <button onClick={logOut}>Log out</button>
                     </div>
-                    <div>
-                        <label htmlFor="password">Your password</label>
-                        <input
-                            type="password"
-                            id={'password'}
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                        />
+                    : <div>
+                        <h1>Auth Page</h1>
+                        <form onSubmit={event => event.preventDefault()}>
+                            <div>
+                                <label htmlFor="login">Your Email/Nick</label>
+                                <input
+                                    type="text"
+                                    id={'login'}
+                                    value={login}
+                                    onChange={e => setLogin(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="password">Your password</label>
+                                <input
+                                    type="password"
+                                    id={'password'}
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                                {
+                                    error ? <span style={{color: 'red'}}>Wrong pass or login</span> : null
+                                }
+                            </div>
+                        </form>
+                        <button onClick={loginHandler}>Log in</button>
+                        <button onClick={() => auth(login, password, false, false)}>Sign up</button>
+                        {
+                            success ? <span>Sign up success! Now log in!</span> : null
+                        }
                     </div>
-                </form>
-                <button onClick={loginHandler}>Log in</button>
-                <button>Sign up</button>
-            </div>
+            }
         </div>
     )
 }
@@ -58,9 +68,12 @@ const mapStateToProps = state => {
     return {
         isAuth: state.auth.isAuth,
         adminLogin: state.auth.adminLogin,
-        adminPassword: state.auth.adminPassword
+        adminPassword: state.auth.adminPassword,
+        isAdmin: state.auth.isAdmin,
+        error: state.auth.error,
+        success: state.auth.success
     }
 }
 
-export default connect(mapStateToProps, {authLogin})(AuthPage)
+export default connect(mapStateToProps, {auth, logOut})(AuthPage)
 
