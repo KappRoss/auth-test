@@ -58,7 +58,7 @@ export const auth = (login, password, isLogin, isAdmin) => {
             //////////sign in /////////
             let notRepeat = state.auth.users.filter( user => user.userName === login )
 
-            if (notRepeat.length < 1 ) {
+            if (notRepeat.length < 1 && login !== 'admin') {
                 dispatch(signUp(login, password))
             }
         }

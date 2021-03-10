@@ -31,7 +31,7 @@ const App = ({isAdmin, isAuth}) => {
             <Switch>
                 <Route exact path={'/info-page'} component={InfoPage}/>
                 <Route exact path={'/admin-page'} component={AdminPage}/>
-                <Route exact path={'/'} component={AuthPage}/>
+                <Route component={AuthPage}/>
             </Switch>
         </div>
     );
