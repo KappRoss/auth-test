@@ -28,7 +28,7 @@ const setLogOut = () => ({type: LOG_OUT})
 
 export const auth = (login, password, isLogin, isAdmin) => {
     return (dispatch, getState) => {
-
+        const state = getState()
 
         /////// data from file ///////
         let response = users
@@ -49,16 +49,19 @@ export const auth = (login, password, isLogin, isAdmin) => {
 
         ///////log in//////////////
         if (isLogin) {
-            const state = getState()
+
 
             let answer = state.auth.users.filter(user => user.userName === login && user.userPass === password)
             answer.length === 1 ? dispatch(logIn()) : dispatch(error())
 
         } else {
             //////////sign in /////////
-            dispatch(signUp(login, password))
-        }
+            let notRepeat = state.auth.users.filter( user => user.userName === login )
 
+            if (notRepeat.length < 1 ) {
+                dispatch(signUp(login, password))
+            }
+        }
     }
 }
 

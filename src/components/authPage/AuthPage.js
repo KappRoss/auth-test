@@ -16,6 +16,21 @@ const AuthPage = ({adminLogin, adminPassword, auth, isAuth, isAdmin, error, succ
         }
     }
 
+    const handleKeyPress = (event) => {
+        event.preventDefault()
+        setPassword(event.target.value)
+        if(event.key === 'Enter'){
+            loginHandler()
+        }
+    }
+
+    const kayPressHandler = (event) => {
+        if(event.key === 'Enter'){
+            loginHandler()
+        }
+
+    }
+
     return (
         <div className={s.AuthPage}>
             {
@@ -30,14 +45,18 @@ const AuthPage = ({adminLogin, adminPassword, auth, isAuth, isAdmin, error, succ
                     </div>
                     : <div>
                         <h1>Auth Page</h1>
-                        <form onSubmit={event => event.preventDefault()}>
+                        <form
+                            onSubmit={(e) => e.preventDefault()}
+                            onKeyPress={kayPressHandler}
+                        >
                             <div>
                                 <label htmlFor="login">Your Email/Nick</label>
                                 <input
                                     type="text"
                                     id={'login'}
                                     value={login}
-                                    onChange={e => setLogin(e.target.value)}
+                                    onChange={e => setLogin(e.target.value) }
+                                    onKeyPress={kayPressHandler}
                                 />
                             </div>
                             <div>
@@ -46,7 +65,8 @@ const AuthPage = ({adminLogin, adminPassword, auth, isAuth, isAdmin, error, succ
                                     type="password"
                                     id={'password'}
                                     value={password}
-                                    onChange={e => setPassword(e.target.value)}
+                                    onChange={handleKeyPress}
+                                    onKeyPress={kayPressHandler}
                                 />
                                 {
                                     error ? <span style={{color: 'red'}}>Wrong pass or login</span> : null

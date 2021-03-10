@@ -43,7 +43,8 @@ export default function authReducer(state = initialState, actions) {
                     userName: actions.login,
                     userPass: actions.password
                 }],
-                success: true
+                success: true,
+                error: false
             }
         case AUTH_ERROR:
             return {
@@ -55,7 +56,8 @@ export default function authReducer(state = initialState, actions) {
                 ...state,
                 isAuth: false,
                 success: false,
-                isAdmin: false
+                isAdmin: false,
+                error: false
             }
         default:
             return state
