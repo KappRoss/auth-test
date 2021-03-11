@@ -1,4 +1,9 @@
+for ADMIN - login: admin , pass: admin;
+for USER - login: test@mail.ua , pass: 1234 ;
+or register new user.
+
 https://KappRoss.github.io/auth-test
+
 
 # Getting Started with Create React App
 
