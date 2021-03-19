@@ -5,15 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from "react-router-dom";
 import {Provider} from "react-redux"
-import { PersistGate } from 'redux-persist/integration/react'
+import {PersistGate} from 'redux-persist/integration/react'
 import {persistor, store} from "./store/rootReducer";
+import {ThemeProvider} from '@material-ui/core/styles';
+import theme from "./Theme";
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate persistor={persistor} loading={null}>
                 <Router>
-                    <App/>
+                    <ThemeProvider theme={theme}>
+                        <App/>
+                    </ThemeProvider>
                 </Router>
             </PersistGate>
         </Provider>

@@ -5,15 +5,11 @@ const initialState = {
     token: null,        // for simulate. (token from src/UserStateFile/users)
     users: [
         {
-            userName: 'k@mail.ru',
-            userPass: '1234'
-        },
-        {
             userName: 'test@mail.ua',
-            userPass: '1234'
+            userPass: '1234',
+            status: 'free'
         }
     ],
-
     adminLogin: 'admin',
     adminPassword: 'admin',
     isAdmin: false,
